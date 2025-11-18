@@ -11,7 +11,7 @@ public class Login extends JFrame implements ActionListener, MouseListener {
     private JPasswordField passwordField;
 
     public Login() {
-
+        ImageIcon image = new ImageIcon("Project.png");
         // ========== FULL SCREEN ==========
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -139,7 +139,9 @@ public class Login extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == signUpLink) signUpLink.setForeground(Color.WHITE);
     }
     @Override public void mousePressed(MouseEvent e) {}
-    @Override public void mouseReleased(MouseEvent e) {}
+    @Override public void mouseReleased(MouseEvent e) {
+        if(e.getSource() == signUpLink) new SignUp();
+    }
 
 
 }
