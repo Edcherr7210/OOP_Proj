@@ -128,7 +128,9 @@ public class Login extends JFrame implements ActionListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
         //Will send to a class where you will register as a student or admin
         if (e.getSource() == signUpLink) {
+            dispose();
             new SignUp();
+
         }
     }
 
