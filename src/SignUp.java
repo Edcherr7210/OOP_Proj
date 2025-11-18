@@ -1,4 +1,7 @@
-package PACKAGE_NAME;
+import javax.swing.*;
 
-public class SignUp {
+public class SignUp extends JFrame {
+    public SignUp(){
+
+    }
 }
