@@ -4,6 +4,8 @@ import java.awt.event.*;
 
 public class Login extends JFrame implements ActionListener, MouseListener {
 
+    String username;
+    String password;
     private JButton loginButton;
     private JLabel signUpLink;
     private JLabel errorLabel;

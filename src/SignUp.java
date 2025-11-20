@@ -1,13 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Objects;
 
 public class SignUp extends JFrame implements ActionListener, MouseListener {
-    private JButton signUpButton;
+    JButton signUpButton;
     private JLabel signInLink;
     private JLabel errorLabel;
-    private JLabel firstName;
-    private JLabel lastName;
+    JLabel firstName;
+    JLabel lastName;
 
     private JLabel emailLabel;
     private JLabel passwordLabel;
@@ -18,6 +19,9 @@ public class SignUp extends JFrame implements ActionListener, MouseListener {
     private JTextField emailField;
     private JPasswordField passwordField;
     private JPasswordField confirmPasswordField;
+
+    private String username;
+    private String password;
     public SignUp() {
         ImageIcon image = new ImageIcon("Project.png");
         // ========== FULL SCREEN ==========
@@ -192,8 +196,9 @@ public class SignUp extends JFrame implements ActionListener, MouseListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //Will add db later to save the info of student or admin
-        if (e.getSource() == signUpButton) {
-
+        if (e.getSource() == signUpButton){
+            System.out.println("signed up");
+            this.username = firstName + "_" + lastName;
         }
     }
 
@@ -203,11 +208,11 @@ public class SignUp extends JFrame implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //Will bring you back to Login If you already have an account
-        if (e.getSource() == signUpLink) {
+        if (e.getSource() == signInLink) {
             dispose();
             new Login();
         }
+
     }
 
     @Override public void mouseEntered(MouseEvent e) {
@@ -216,7 +221,9 @@ public class SignUp extends JFrame implements ActionListener, MouseListener {
     @Override public void mouseExited(MouseEvent e) {
         if (e.getSource() == signInLink) signInLink.setForeground(Color.WHITE);
     }
-    @Override public void mousePressed(MouseEvent e) {}
+    @Override public void mousePressed(MouseEvent e) {
+
+    }
     @Override public void mouseReleased(MouseEvent e) {
     }
 
