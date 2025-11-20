@@ -130,6 +130,7 @@ public class Login extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == signUpLink) {
             dispose();
             new SignUp();
+
         }
     }
 

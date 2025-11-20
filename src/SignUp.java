@@ -203,8 +203,8 @@ public class SignUp extends JFrame implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //Will send to a class where you will register as a student
-        if (e.getSource() == signInLink) {
+        //Will bring you back to Login If you already have an account
+        if (e.getSource() == signUpLink) {
             dispose();
             new Login();
         }
@@ -219,5 +219,7 @@ public class SignUp extends JFrame implements ActionListener, MouseListener {
     @Override public void mousePressed(MouseEvent e) {}
     @Override public void mouseReleased(MouseEvent e) {
     }
+
+
 
 }
