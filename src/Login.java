@@ -27,7 +27,7 @@ public class Login extends JFrame implements ActionListener, MouseListener {
         leftPanel.setLayout(new GridBagLayout());
 
         // Title + image stacked vertically
-        JLabel appTitle = new JLabel("Assignment Calendar");
+        JLabel appTitle = new JLabel("PrioritiCal");
         appTitle.setFont(new Font("Roboto Mono", Font.BOLD, 48));
         appTitle.setForeground(Color.BLACK);
 
@@ -128,6 +128,7 @@ public class Login extends JFrame implements ActionListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
         //Will send to a class where you will register as a student or admin
         if (e.getSource() == signUpLink) {
+            dispose();
             new SignUp();
         }
     }
@@ -140,7 +141,7 @@ public class Login extends JFrame implements ActionListener, MouseListener {
     }
     @Override public void mousePressed(MouseEvent e) {}
     @Override public void mouseReleased(MouseEvent e) {
-        if(e.getSource() == signUpLink) new SignUp();
+
     }
 
 
