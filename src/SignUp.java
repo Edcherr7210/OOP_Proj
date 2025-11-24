@@ -1,7 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Objects;
+import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class SignUp extends JFrame implements ActionListener, MouseListener {
     JButton signUpButton;
@@ -13,15 +16,18 @@ public class SignUp extends JFrame implements ActionListener, MouseListener {
     private JLabel emailLabel;
     private JLabel passwordLabel;
     private JLabel confPassLabel;
+    private JLabel majorLabel;
 
     private JTextField firstNameField;
     private JTextField lastNameField;
     private JTextField emailField;
     private JPasswordField passwordField;
-    private JPasswordField confirmPasswordField;
+    JPasswordField confirmPasswordField;
+    JTextField major;
+
 
     private String username;
-    private String password;
+
     public SignUp() {
         ImageIcon image = new ImageIcon("Project.png");
         // ========== FULL SCREEN ==========
@@ -82,6 +88,15 @@ public class SignUp extends JFrame implements ActionListener, MouseListener {
         firstNameField = new JTextField(20);
         firstNameField.setPreferredSize(new Dimension(300, 40));
         firstNameField.setFont(new Font("Arial", Font.BOLD, 14));
+
+        major = new JTextField(20);
+        major.setPreferredSize(new Dimension(300, 40));
+        major.setFont(new Font("Arial", Font.BOLD, 14));
+
+        majorLabel = new JLabel("Major");
+        majorLabel.setHorizontalAlignment(JLabel.CENTER);
+        majorLabel.setForeground(Color.WHITE);
+        majorLabel.setFont(new Font("Times New Roman", Font.BOLD, 14));
 
         lastName = new JLabel("Last Name");
         lastName.setHorizontalAlignment(JLabel.CENTER);
@@ -175,13 +190,21 @@ public class SignUp extends JFrame implements ActionListener, MouseListener {
         rightPanel.add(confirmPasswordField, gbc);
 
         gbc.gridy = 7;
-        rightPanel.add(signUpButton, gbc);
+        rightPanel.add(majorLabel, gbc);
 
         gbc.gridy = 8;
-        rightPanel.add(signInLink, gbc);
+        rightPanel.add(major, gbc);
 
         gbc.gridy = 9;
+        rightPanel.add(signUpButton, gbc);
+
+        gbc.gridy = 10;
+        rightPanel.add(signInLink, gbc);
+
+        gbc.gridy = 11;
         rightPanel.add(errorLabel, gbc);
+
+
 
         // Add panels to main container
         mainBg.add(leftPanel, BorderLayout.WEST);
@@ -190,15 +213,50 @@ public class SignUp extends JFrame implements ActionListener, MouseListener {
         // Add to frame
         this.add(mainBg);
         this.setVisible(true);
+
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //Will add db later to save the info of student or admin
-        if (e.getSource() == signUpButton){
-            System.out.println("signed up");
-            this.username = firstName + "_" + lastName;
+        if (e.getSource() == signUpButton) {
+            String first = firstNameField.getText().trim();
+            String last  = lastNameField.getText().trim();
+            String email = emailField.getText().trim();
+            String pass  = new String(passwordField.getPassword());
+            String conf  = new String(confirmPasswordField.getPassword());
+            String maj   = major.getText().trim();   // your JTextField major
+
+            // simple checks
+            if (first.isEmpty() || last.isEmpty() || email.isEmpty() || pass.isEmpty()) {
+                errorLabel.setText("Please fill in all required fields.");
+                return;
+            }
+            if (!pass.equals(conf)) {
+                errorLabel.setText("Passwords do not match.");
+                return;
+            }
+
+            String sql = "INSERT INTO students(first_name, last_name, email, password, major) " +
+                    "VALUES (?, ?, ?, ?, ?)";
+
+            try (Connection conn = Database.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                pstmt.setString(1, first);
+                pstmt.setString(2, last);
+                pstmt.setString(3, email);
+                pstmt.setString(4, pass);      // later you can hash this
+                pstmt.setString(5, maj);
+
+
+                pstmt.executeUpdate();
+                errorLabel.setText("Account created! You can sign in now.");
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                errorLabel.setText("Error creating account: " + ex.getMessage());
+            }
         }
     }
 
@@ -226,6 +284,7 @@ public class SignUp extends JFrame implements ActionListener, MouseListener {
     }
     @Override public void mouseReleased(MouseEvent e) {
     }
+
 
 
 
