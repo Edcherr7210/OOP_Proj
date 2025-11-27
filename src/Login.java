@@ -4,6 +4,8 @@ import java.awt.event.*;
 
 public class Login extends JFrame implements ActionListener, MouseListener {
 
+    String username;
+    String password;
     private JButton loginButton;
     private JLabel signUpLink;
     private JLabel errorLabel;
@@ -11,7 +13,7 @@ public class Login extends JFrame implements ActionListener, MouseListener {
     private JPasswordField passwordField;
 
     public Login() {
-
+        ImageIcon image = new ImageIcon("Project.png");
         // ========== FULL SCREEN ==========
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,7 +29,7 @@ public class Login extends JFrame implements ActionListener, MouseListener {
         leftPanel.setLayout(new GridBagLayout());
 
         // Title + image stacked vertically
-        JLabel appTitle = new JLabel("Assignment Calendar");
+        JLabel appTitle = new JLabel("PrioritiCal");
         appTitle.setFont(new Font("Roboto Mono", Font.BOLD, 48));
         appTitle.setForeground(Color.BLACK);
 
@@ -128,8 +130,9 @@ public class Login extends JFrame implements ActionListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
         //Will send to a class where you will register as a student or admin
         if (e.getSource() == signUpLink) {
-            JOptionPane.showMessageDialog(this,
-                    "Sign-up clicked! Open your registration window here.");
+            dispose();
+            new SignUp();
+
         }
     }
 
@@ -140,7 +143,9 @@ public class Login extends JFrame implements ActionListener, MouseListener {
         if (e.getSource() == signUpLink) signUpLink.setForeground(Color.WHITE);
     }
     @Override public void mousePressed(MouseEvent e) {}
-    @Override public void mouseReleased(MouseEvent e) {}
+    @Override public void mouseReleased(MouseEvent e) {
+
+    }
 
 
 }
