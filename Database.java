@@ -1,29 +1,12 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-public class Database {
-    // This is your SQLite file
-    private static final String URL = "jdbc:sqlite:PrioritiCal.db";
-
-    // Get a connection to the DB file
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL);
-    }
-
-    // Create tables if they don't exist
-    public static void init() {
-        String sql = """
 
             
-                CREATE TABLE IF NOT EXISTS "Student" (
+                CREATE TABLE "Student" (
                 "First_name" TEXT PRIMARY KEY NOT NULL,
                 "Last_name" TEXT NOT NULL,
                 "Password" TEXT NOT NULL,
                 "Confirmation_Password" TEXT  NOT NULL
             );
-            CREATE TABLE  IF NOT EXISTS  "StudentCourse"(
+            CREATE TABLE "StudentCourse"(
                 "StudentCourseID" TEXT PRIMARY KEY NOT NULL,
                 "First_name" TEXT  NOT NULL,
                 "CurrentGrade" REAL NOT NULL,
@@ -39,7 +22,7 @@ public class Database {
                 "FinalPercentage" REAL NOT NULL,
                 FOREIGN KEY (First_name) REFERENCES Student(First_name)
             );
-            CREATE TABLE  IF NOT EXISTS  "Course" (
+            CREATE TABLE "Course" (
                 "CourseID" INTEGER PRIMARY KEY NOT NULL,
                 "StudentCourseID" TEXT NOT NULL,
                 "CourseName" TEXT NOT NULL,
@@ -48,7 +31,7 @@ public class Database {
                 FOREIGN KEY (StudentCourseID) REFERENCES StudentCourse(StudentCourseID)
             
             );
-            CREATE TABLE  IF NOT EXISTS  "StudentAssignment"(
+            CREATE TABLE "StudentAssignment"(
                 "AssignmentID" INTEGER PRIMARY KEY NOT NULL,
                 "AssignmentName" TEXT NOT NULL,
                 "CourseID" INTEGER NOT NULL,
@@ -58,18 +41,6 @@ public class Database {
                 "PossiblePointsPerAssignment" REAL NOT NULL,
                 FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
             
-            ); """
+            );
             
             
-            
-            ;
-
-        try (Connection conn = getConnection();
-             Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println("DB ready.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-}
