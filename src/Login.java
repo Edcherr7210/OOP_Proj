@@ -117,9 +117,46 @@ public class Login extends JFrame implements ActionListener, MouseListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //Will add db later to save the info of student or admin
-        if (e.getSource() == loginButton) {
-
+    /* String email = usernameField.getText();
+    String password = new String (passwordField.getPassword());
+       //Makes it so email has to end with @snhu.edu
+        if (!ValidEmail(email)) {//Checks to make sure it's a verified email
+            errorLabel.setText("Invalid Email must end with @snhu.edu");
+            return;
         }
+        if (!AllowedPassword(password)) {
+            errorLabel.setText("Invaild Password. Must be 12+ Characters, must include one uppercase, one lowercase, and a numerical number ");
+       return;
+        }
+        String name = email.split ("@")[0];//divides a string into pieces so we can the first name
+        System.out.println("Tracked username:" + name);
+        }
+public boolean ValidEmail(String email) {
+        if (email== null) //Makes sure the email can't be anything else other than @snhu.edu
+            return false;
+        return email.contains("@snhu.edu");
+    }
+public boolean AllowedPassword(String password) {
+        if (password == null)
+        return false;
+        if (password.length()< 12)
+            return false;
+        boolean cap =false;
+        boolean low =false;
+        boolean num =false;
+        boolean specialChar =false;
+        for (char p : password.toCharArray()) {//checks each of these conditions to make sure there true. If not it's an invaild password.
+            if (Character.isLowerCase(p)) low = true;
+            else if (Character.isUpperCase(p)) cap = true;
+            else if (Character.isDigit(p)) num = true;
+            else specialChar = true;
+        }
+
+
+            return cap && low && num && specialChar;
+}
+*/
+
     }
 
     private boolean authenticate(String user, String pass) {
@@ -144,6 +181,7 @@ public class Login extends JFrame implements ActionListener, MouseListener {
     }
     @Override public void mousePressed(MouseEvent e) {}
     @Override public void mouseReleased(MouseEvent e) {
+
 
     }
 
