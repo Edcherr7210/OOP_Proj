@@ -21,7 +21,6 @@ public class Database {
                 "First_name" TEXT PRIMARY KEY NOT NULL,
                 "Last_name" TEXT NOT NULL,
                 "Password" TEXT NOT NULL,
-                "Confirmation_Password" TEXT  NOT NULL
             );
             CREATE TABLE  IF NOT EXISTS  "StudentCourse"(
                 "StudentCourseID" TEXT PRIMARY KEY NOT NULL,
