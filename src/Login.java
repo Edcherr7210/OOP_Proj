@@ -117,7 +117,8 @@ public class Login extends JFrame implements ActionListener, MouseListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //Will add db later to save the info of student or admin
-    /* String email = usernameField.getText();
+    /*
+        String email = usernameField.getText();
     String password = new String (passwordField.getPassword());
        //Makes it so email has to end with @snhu.edu
         if (!ValidEmail(email)) {//Checks to make sure it's a verified email
@@ -125,7 +126,7 @@ public class Login extends JFrame implements ActionListener, MouseListener {
             return;
         }
         if (!AllowedPassword(password)) {
-            errorLabel.setText("Invaild Password. Must be 12+ Characters, must include one uppercase, one lowercase, and a numerical number ");
+            errorLabel.setText("Invaild Password. Must be 12+ Characters, must include one uppercase, one lowercase, special character and a numerical number ");
        return;
         }
         String name = email.split ("@")[0];//divides a string into pieces so we can the first name

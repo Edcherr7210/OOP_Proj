@@ -18,12 +18,12 @@ public class Database {
 
             
                 CREATE TABLE IF NOT EXISTS "Student" (
-                "First_name" TEXT PRIMARY KEY NOT NULL,
+                "First_name" TEXT PRIMARY KEY AUTOINCREMENT,
                 "Last_name" TEXT NOT NULL,
                 "Password" TEXT NOT NULL,
             );
             CREATE TABLE  IF NOT EXISTS  "StudentCourse"(
-                "StudentCourseID" TEXT PRIMARY KEY NOT NULL,
+                "StudentID" TEXT PRIMARY KEY AUTOINCREMENT,
                 "First_name" TEXT  NOT NULL,
                 "CurrentGrade" REAL NOT NULL,
                 "AttendancePercentage" REAL NOT NULL,
@@ -39,7 +39,7 @@ public class Database {
                 FOREIGN KEY (First_name) REFERENCES Student(First_name)
             );
             CREATE TABLE  IF NOT EXISTS  "Course" (
-                "CourseID" INTEGER PRIMARY KEY NOT NULL,
+                "CourseID" INTEGER PRIMARY KEY AUTOINCREMENT,
                 "StudentCourseID" TEXT NOT NULL,
                 "CourseName" TEXT NOT NULL,
                 "ClassTimes" TEXT NOT NULL,
@@ -48,14 +48,14 @@ public class Database {
             
             );
             CREATE TABLE  IF NOT EXISTS  "StudentAssignment"(
-                "AssignmentID" INTEGER PRIMARY KEY NOT NULL,
+                "AssignmentID" INTEGER PRIMARY KEY AUTOINCREMENT,
                 "AssignmentName" TEXT NOT NULL,
                 "CourseID" INTEGER NOT NULL,
                 "AssignmentType" TEXT NOT NULL,
                 "TimeDue" TIME NOT NULL,
                 "DueDate" DATE NOT NULL,
                 "PossiblePointsPerAssignment" REAL NOT NULL,
-                FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
+                FOREIGN KEY (StudentID) REFERENCES Course(StudentID)
             
             ); """
             
