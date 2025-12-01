@@ -1,0 +1,401 @@
+AssignmentD,Class,AssignmentName,AssignmentType,TimeDue,DueDate,PossiblePointsPerAssignment
+1,QSO-321,Project Scheduling,Evaluation,9:00,9/4,3.34
+2,FIN-440,Equities,Homework,23:59,9/5,4
+3,HIS-357,Essay 1,In-Class Participation,13:45,9/7,10
+4,MAT-275,HW 1,Homework ,23:59,9/7,1.25
+5,FIN-440,Debt Fundamentals ,Homework,23:59,9/9,4
+6,MAT-275,Exit Ticket 1,In-Class Particpation,13:45,9/9,0.5263157895
+7,QSO-321,Measuring Performance in Operations and Value Chains,Homework,9:00,9/11,0.625
+8,MAT-275,Exit Ticket 2,In-Class Particpation,13:45,9/11,0.5263157895
+9,MAT-275,HW 2,Homework ,23:59,9/14,1.25
+10,FIN-440,Additional Bond Features and Risks,Homework,23:59,9/16,4
+11,MAT-275,Exit Ticket 3,In-Class Particpation,13:45,9/16,0.5263157895
+12,QSO-321,Operations Management and Value Chains,Homework,9:00,9/18,0.625
+13,MAT-275,Exit Ticket 4,In-Class Particpation,13:45,9/18,0.5263157895
+14,FIN-440,Corporate and U.S. Government Debt ,Homework,23:59,9/19,4
+15,FIN-440,Mastery Exam 1,Exam,12:15,9/19,3.75
+16,MAT-275,HW 3,Homework ,23:59,9/21,1.25
+17,SNHU-398,Experiment 1,Evaluations,7:00,9/21,10
+18,QSO-321,Operation Strategy,Homework,9:00,9/23,0.625
+19,FIN-440,Municipal Debt and Money Market Instruments ,Homework,23:59,9/23,4
+20,MAT-275,Exit Ticket 5,In-Class Particpation,13:45,9/23,0.5263157895
+21,QSO-321,Technology and Operations Management,Homework,9:00,9/25,0.625
+22,MAT-275,HW 4,Homework ,23:59,9/28,1.25
+23,FIN-440,Packaged Production,Homework,23:59,9/30,4
+24,MAT-275,Exam 1,Exam,12:30,9/30,17.5
+25,HIS-357,Essay 2,In-Class Participation,13:45,10/1,10
+26,QSO-321,Goods and Service Design,Homework,9:00,10/2,0.625
+27,MAT-275,Exit Ticket 6,In-Class Particpation,13:45,10/2,0.5263157895
+28,MAT-275,HW 5,Homework ,23:59,10/5,1.25
+29,FIN-440,Trading Markets,Homework,23:59,10/7,4
+30,MAT-275,Exit Ticket 7,In-Class Particpation,13:45,10/7,0.5263157895
+31,QSO-321,Supply Chain Design,Homework,9:00,10/9,0.625
+32,MAT-275,Exit Ticket 8,In-Class Particpation,13:45,10/9,0.5263157895
+33,HIS-357,Essay 3,In-Class Participation,13:45,10/10,10
+34,FIN-440,Trade Processing and Settlement ,Homework,23:59,10/10,4
+35,FIN-440,Mastery Exam 2,Exam,12:15,10/10,3.75
+36,MAT-275,HW 6,Homework ,23:59,10/12,1.25
+37,FIN-440,Options,Homework,23:59,10/14,4
+38,MAT-275,Exit Ticket 9,In-Class Particpation,13:45,10/14,0.5263157895
+39,HIS-357 ,Discussion in front of class,Discussion,13:45,10/15,10
+40,QSO-321,First Exam,Exam,10:45,10/16,25
+41,MAT-275,HW 7,Homework ,23:59,10/19,1.25
+42,SNHU-398,Experiment 2,Evaluations,7:00,10/19,10
+43,FIN-440,Individual Customer Accounts and Suitability ,Homework,23:59,10/21,4
+44,MAT-275,Exam 2,Exam,12:30,10/21,17.5
+45,HIS-357,Essay 4,In-Class Participation,13:45,10/22,10
+46,QSO-321,"Process Selection, Design, and Improvement ",Evaluation,9:00,10/23,3.33
+47,MAT-275,Exit Ticket 10,In-Class Particpation,13:45,10/23,0.5263157895
+48,FIN-440,Other Account Types: Retirement Plans and Variable Annuities ,Homework,23:59,10/24,4
+49,MAT-275,HW 8,Homework ,23:59,10/26,1.25
+50,FIN-440,Municipal Fund Securities,Homework,23:59,10/28,4
+51,QSO-321,Facility and Work Design,Homework,9:00,10/30,0.625
+52,MAT-275,Exit Ticket 11,In-Class Particpation,13:45,10/30,0.5263157895
+53,HIS-357,Essay 5,In-Class Participation,13:45,10/31,10
+54,MAT-275,HW 9,Homework ,23:59,11/2,1.25
+55,FIN-440,Primary Market Act of 1934 and Other Federal and State ,Homework,23:59,11/4,4
+56,MAT-275,Exit Ticket 12,In-Class Particpation,13:45,11/4,0.5263157895
+57,QSO-321,Forecasting and Demand Planning,Homework,9:00,11/6,0.625
+58,MAT-275,Exit Ticket 13,In-Class Particpation,13:45,11/6,0.5263157895
+59,FIN-440,Regulations,Homework,23:59,11/7,4
+60,FIN-440,Mastery Exam 3,Exam,12:15,11/7,3.75
+61,MAT-275,HW 10,Homework ,23:59,11/9,1.25
+62,MAT-275,HW 11,Homework ,23:59,11/9,1.25
+63,MAT-275,Exit Ticket 14,In-Class Particpation,13:45,11/11,0.5263157895
+64,QSO-321,Second Exam,Exam,10:45,11/13,25
+65,MAT-275,Exit Ticket 15,In-Class Particpation,13:45,11/13,0.5263157895
+66,MAT-275,HW 12,Homework ,23:59,11/16,1.25
+67,MAT-275,Exit Ticket 16,In-Class Particpation,13:45,11/18,0.5263157895
+68,QSO-321,Managing Inventories in Supply Chains,Homework,9:00,11/20,0.625
+69,MAT-275,Exit Ticket 17,In-Class Particpation,13:45,11/20,0.5263157895
+70,MAT-275,HW 13,Homework ,23:59,11/23,1.25
+71,SNHU-398,Presentation of results,Project,7:00,11/23,20
+72,QSO-321,Supply Chain Management and Logistics,Homework,9:00,11/25,0.625
+73,FIN-440,Self-Reglatory Organization Rules ,Homework,23:59,11/25,4
+74,FIN-440,Mastery Exam 4,Exam,12:15,11/25,3.75
+75,MAT-275,Exam 3,Exam,12:30,11/25,17.5
+76,SNHU-398,Experiment 3,Evaluations,7:00,11/25,10
+77,SNHU-398,Collecting and Ultilizing Empathic Data,Homework,23:59,11/25,10
+78,QSO-321,Resource Management,Homework,9:00,11/27,0.625
+79,MAT-275,HW 14,Homework ,23:59,11/30,1.25
+80,QSO-321,Operation Scheduling and Sequencing,Homework,9:00,12/2,0.625
+81,MAT-275,Exit Ticket 18,In-Class Particpation,13:45,12/2,0.5263157895
+82,QSO-321,Quality Management,Homework,9:00,12/4,0.625
+83,MAT-275,Exit Ticket 19,In-Class Particpation,13:45,12/4,0.5263157895
+84,MAT-275,HW 15,Homework ,23:59,12/7,1.25
+85,QSO-321,Capacity Management,Homework,9:00,12/9,0.625
+86,SNHU-398,Activity Revision Assignment,Homework,23:59,12/9,10
+87,SNHU-398,Career Development Assignment,Homework,23:59,12/9,10
+88,FIN-440,Final Exam,Final,12:15,12/10,15
+89,QSO-321,Process Analysis and Resource Utilization,Evaluation,9:00,12/11,3.33
+90,MAT-275,Exam 4,Exam,12:30,12/11,17.5
+91,MAT-275,HW 16,Homework ,23:59,12/14,1.25
+92,QSO-321,Statistical Process Control,Homework,9:00,12/16,0.625
+93,FIN-440,SLE Exam,Evaluations,12:15,12/16,10
+94,HIS-357,Final Essay,Final,23:59,12/17,20
+95,QSO-321,Lean Operating System ,Homework,9:00,12/18,0.625
+96,QSO-321,Final Exam-Take Home,Final,10:45,12/18,30
+97,HIS-357 ,Coming to class,Attendance,N/A,N/A,20
+98,SNHU-398,Being in class,Attendance,N/A,N/A,20
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,Gage,,,,,
