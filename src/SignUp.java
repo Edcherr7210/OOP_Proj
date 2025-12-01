@@ -266,6 +266,7 @@ public class SignUp extends JFrame implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        //Will bring you back to Login If you already have an account
         if (e.getSource() == signInLink) {
             dispose();
             new Login();
