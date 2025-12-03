@@ -1,8 +1,9 @@
 import java.io.*;
-public class CSVImportCode {
-    public static void main(String[] args) {
+public class CSVImportCode extends Calendar{
+    public CSVImportCode(String filepath) {
 
-        String filelocation = "C:\\Users\\JohnA\\Desktop\\CS-250\\OOP_Proj\\src\\StudentsAssignment(Gage)-StudentAssignmentP4.csv"; //Get the csv file from srv this may be why we are having this error
+        String filelocation = filepath;//Get the csv file from srv this may be why we are having this error
+        System.out.println(filepath);
         BufferedReader reader = null; //shows if reader doesn't go to anything.
         String line = "";//Reads each line of file
 
