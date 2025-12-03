@@ -57,11 +57,7 @@ public class Database {
                 "PossiblePointsPerAssignment" REAL NOT NULL,
                 FOREIGN KEY (StudentID) REFERENCES Course(StudentID)
             
-            ); """
-            
-            
-            
-            ;
+            );""" ;
 
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
