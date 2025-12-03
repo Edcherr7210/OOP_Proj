@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.io.*;
 
 public class Calendar extends JFrame {
 
@@ -20,8 +21,9 @@ public class Calendar extends JFrame {
 
     // Day labels
     private String[] dayNames = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
-
+    public String filepath;
     public Calendar() {
+        filepath = "No File Selected";
         // Full Screen
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,14 +56,17 @@ public class Calendar extends JFrame {
         JButton prevMonth = new JButton("← Previous");
         JButton nextMonth = new JButton("Next →");
         JButton today = new JButton("Today");
+        JButton importer = new JButton("Import CSV file");
 
         prevMonth.addActionListener(e -> changeMonth(-1));
         nextMonth.addActionListener(e -> changeMonth(1));
         today.addActionListener(e -> goToToday());
+        importer.addActionListener(e -> getFile(filepath));
 
         navPanel.add(prevMonth);
         navPanel.add(today);
         navPanel.add(nextMonth);
+        navPanel.add(importer);
         topPanel.add(navPanel, BorderLayout.SOUTH);
 
         leftPanel.add(topPanel, BorderLayout.NORTH);
@@ -195,5 +200,18 @@ public class Calendar extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Calendar());
     }
+
+    public void getFile(String filepath) {
+        JFileChooser chooser = new JFileChooser(".");
+        int result = chooser.showOpenDialog(chooser);
+
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            File selectFile = chooser.getSelectedFile();
+            filepath = selectFile.getAbsolutePath();
+            CSVImportCode csv = new CSVImportCode(filepath);
+        }
+    }
+
 }
 

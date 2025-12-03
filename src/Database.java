@@ -21,6 +21,7 @@ public class Database {
                 "First_name" TEXT PRIMARY KEY AUTOINCREMENT,
                 "Last_name" TEXT NOT NULL,
                 "Password" TEXT NOT NULL,
+                "CSV-File" TEXT
             );
             CREATE TABLE  IF NOT EXISTS  "StudentCourse"(
                 "StudentID" TEXT PRIMARY KEY AUTOINCREMENT,
