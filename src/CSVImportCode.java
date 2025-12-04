@@ -1,5 +1,13 @@
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class CSVImportCode extends Calendar{
+
+    private String date = "";
+    private String assignment = "";
+    private float points = 0;
     public CSVImportCode(String filepath) {
 
         String filelocation = filepath;//Get the csv file from srv this may be why we are having this error
@@ -9,12 +17,26 @@ public class CSVImportCode extends Calendar{
 
         try {
             reader = new BufferedReader(new FileReader(filelocation));
-                  while ((line = reader.readLine()) != null) { // reads the next line every time
-                String[] row = line.split(","); // splits line at all commas
-                for (String index : row) { // displays all indexes
-                    System.out.printf("%-1s", index); // puts a space between all strings
-                }
-                System.out.println(); // prints all lines
+            reader.readLine();
+                while ((line = reader.readLine()) != null) { // reads the next line every time
+                    String[] row = line.split(","); // splits line at all commas
+                    for (String index : row) { // loop through all indexes
+                        String sql = "INSERT INTO StudentAssignment (AssignmentName, DueDate, PossiblePointsPerAssignment)" + "VALUES(?, ?, ?)";
+                        try (Connection conn = Database.getConnection();
+                             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                            pstmt.setString(1, row[2]);
+                            pstmt.setString(2, row[5]);
+                            pstmt.setString(3, row[6]);
+
+                            pstmt.executeUpdate();
+                            System.out.println("Account created! You can sign in now.");
+
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                            System.out.println("Error creating account: " + ex.getMessage());
+                        }
+                    }
             }
         }
         catch (Exception e) {
