@@ -8,8 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.io.*;
 
-public class Calendar extends JFrame {
 
+public class Calendar extends JFrame {
+    public JLabel errorLabel;
     private LocalDateTime dateTime = LocalDateTime.now();
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
     private String currentDate = dateTime.format(formatter);
@@ -57,16 +58,19 @@ public class Calendar extends JFrame {
         JButton nextMonth = new JButton("Next →");
         JButton today = new JButton("Today");
         JButton importer = new JButton("Import CSV file");
+        JButton addCurrentGrade = new JButton("+ Current Grade");
 
         prevMonth.addActionListener(e -> changeMonth(-1));
         nextMonth.addActionListener(e -> changeMonth(1));
         today.addActionListener(e -> goToToday());
         importer.addActionListener(e -> getFile(filepath));
+        addCurrentGrade.addActionListener(e -> openCurGradePage());
 
         navPanel.add(prevMonth);
         navPanel.add(today);
         navPanel.add(nextMonth);
         navPanel.add(importer);
+        navPanel.add(addCurrentGrade);
         topPanel.add(navPanel, BorderLayout.SOUTH);
 
         leftPanel.add(topPanel, BorderLayout.NORTH);
@@ -92,6 +96,9 @@ public class Calendar extends JFrame {
 
         assignmentPanel.setBackground(Color.GRAY);
         assignmentPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2));
+
+        errorLabel = new JLabel("");
+        errorLabel.setForeground(Color.RED);
 
         JTextArea assignmentArea = new JTextArea("No assignments selected.\n\nClick a date to view assignments.");
         assignmentArea.setEditable(false);
@@ -212,6 +219,9 @@ public class Calendar extends JFrame {
             CSVImportCode csv = new CSVImportCode(filepath);
         }
     }
-
+    public void openCurGradePage() {
+        dispose();
+        new AddGrades();
+    }
 }
 
