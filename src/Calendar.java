@@ -12,6 +12,7 @@ import java.util.List;
 import java.time.LocalDate;
 
 public class Calendar extends JFrame {
+    public JTextArea assignmentArea = new JTextArea("No assignments selected.\n\nClick a date to view assignments.");
     public JLabel errorLabel;
     private LocalDateTime dateTime = LocalDateTime.now();
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
@@ -25,6 +26,7 @@ public class Calendar extends JFrame {
     // Day labels
     private String[] dayNames = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
     public String filepath;
+
     public Calendar() {
         filepath = "No File Selected";
         // Full Screen
@@ -60,19 +62,18 @@ public class Calendar extends JFrame {
         JButton nextMonth = new JButton("Next →");
         JButton today = new JButton("Today");
         JButton importer = new JButton("Import CSV file");
-        JButton addCurrentGrade = new JButton("+ Current Grade");
+
 
         prevMonth.addActionListener(e -> changeMonth(-1));
         nextMonth.addActionListener(e -> changeMonth(1));
         today.addActionListener(e -> goToToday());
-        importer.addActionListener(e -> getFile(filepath));
-        addCurrentGrade.addActionListener(e -> openCurGradePage());
+        importer.addActionListener(e -> getFile());
+
 
         navPanel.add(prevMonth);
         navPanel.add(today);
         navPanel.add(nextMonth);
         navPanel.add(importer);
-        navPanel.add(addCurrentGrade);
         topPanel.add(navPanel, BorderLayout.SOUTH);
 
         leftPanel.add(topPanel, BorderLayout.NORTH);
@@ -102,7 +103,6 @@ public class Calendar extends JFrame {
         errorLabel = new JLabel("");
         errorLabel.setForeground(Color.RED);
 
-        JTextArea assignmentArea = new JTextArea("No assignments selected.\n\nClick a date to view assignments.");
         assignmentArea.setEditable(false);
         assignmentArea.setFont(new Font("Arial", Font.PLAIN, 14));
         assignmentArea.setLineWrap(true);
@@ -178,7 +178,7 @@ public class Calendar extends JFrame {
            // dayButton.addActionListener(e -> {
               dayButton.addActionListener(e -> {
                  displayAssignments(date);
-                System.out.println("Clicked: " + date);
+                 System.out.println("Clicked: " + date);
                 // You can add functionality here to show assignments for this date
             });
 
@@ -212,45 +212,68 @@ public class Calendar extends JFrame {
         SwingUtilities.invokeLater(() -> new Calendar());
     }
 
-    public void getFile(String filepath) {
+    public void getFile() {
         JFileChooser chooser = new JFileChooser(".");
         int result = chooser.showOpenDialog(chooser);
-
+        String filepath;
         if (result == JFileChooser.APPROVE_OPTION)
         {
             File selectFile = chooser.getSelectedFile();
             filepath = selectFile.getAbsolutePath();
             CSVImportCode csv = new CSVImportCode(filepath);
+            LoadCSVData(csv);
         }
+
     }
-    public void openCurGradePage() {
-        dispose();
-        new AddGrades();
-    }
+
+
     public void displayAssignments(LocalDate date) {
-        JTextArea assignmentArea = new JTextArea();
-        assignmentArea.setEditable(false);//Makes student not able to edit their assignment
-        assignmentArea.setFont(new Font("Arial", Font.PLAIN, 14));// sets a default font
-        assignmentArea.setBackground(Color.BLUE);//sets a default background color
-        assignmentArea.setForeground(Color.WHITE);
-        assignmentArea.setLineWrap(true);
         List<Assignments> list = assignmentsByDate.get(date);// Grabs the list on the spreadsheet with the assignments due date.
         if (list == null || list.isEmpty()) { //If an assignment is due it does't show it
             assignmentArea.setText("No assignments found");
         }
         else
         {
-    StringBuilder tasks = new StringBuilder();
-            for (Assignments t: list) { // How it will list out the assignments. When our list has 10 assignments it will run this loop 10 times each time our t will be the next assignment.
-                tasks.append(t.ClassName).append("").append(t.AssignmentName) // what is t it is our temp variable that holds the assignment object into a list
-                        .append("Type:").append(t.AssignmentType)
-                        .append("Due by").append(t.timeDue)
-                        .append("Point of Assignment").append(t.points);
-
+            StringBuilder tasks = new StringBuilder();
+            for (Assignments t: list) {// How it will list out the assignments. When our list has 10 assignments it will run this loop 10 times each time our t will be the next assignment.
+                tasks.append(t.ClassName).append(t.AssignmentName).append("Point of Assignment").append(t.points);
             }
             assignmentArea.setText(tasks.toString());// Makes sure all of these come out as strings
-
         }
+    }
+    public void LoadCSVData(CSVImportCode csv) {
+        assignmentsByDate.clear();
+
+        ArrayList<String> Assignments = csv.assignments;
+        ArrayList<String> Date = csv.dates;
+        ArrayList<String> Points = csv.points;
+        ArrayList<String> Classes = csv.classes;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy"); // Adjust this to match your CSV
+
+        for (int i = 0; i < Date.size(); i++) {
+            try {
+                String dateStr = Date.get(i).trim();
+
+                if (dateStr.isEmpty() || !dateStr.matches(".*\\d.*")) {
+                    System.out.println("Skipping row with invalid date: '" + dateStr + "' for assignment: " + Assignments.get(i));
+                    continue;
+                }
+                LocalDate date = LocalDate.parse(Date.get(i), formatter);
+                Assignments assignment = new Assignments(Assignments.get(i), Date.get(i), Points.get(i), Classes.get(i));
+
+                // Add assignment to the map
+                if (!assignmentsByDate.containsKey(date)) {
+                    assignmentsByDate.put(date, new ArrayList<>());
+                }
+                assignmentsByDate.get(date).add(assignment);
+
+            } catch (Exception e) {
+                System.err.println("Error parsing date: " + Date.get(i));
+                e.printStackTrace();
+            }
+        }
+
+        updateCalendarGrid();
     }
 }
 
