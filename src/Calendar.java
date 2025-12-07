@@ -7,7 +7,9 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.io.*;
-
+import java.util.HashMap;
+import java.util.List;
+import java.time.LocalDate;
 
 public class Calendar extends JFrame {
     public JLabel errorLabel;
@@ -19,7 +21,7 @@ public class Calendar extends JFrame {
     private JLabel date = new JLabel(currentDate);
     private HashMap<LocalDate, JButton> DateButton = new HashMap<>();
     private YearMonth currentMonth = YearMonth.now();
-
+    private HashMap<LocalDate, List<Assignments>> assignmentsByDate = new HashMap<>();
     // Day labels
     private String[] dayNames = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
     public String filepath;
@@ -173,7 +175,9 @@ public class Calendar extends JFrame {
             }
 
             // Add click listener
-            dayButton.addActionListener(e -> {
+           // dayButton.addActionListener(e -> {
+              dayButton.addActionListener(e -> {
+                 displayAssignments(date);
                 System.out.println("Clicked: " + date);
                 // You can add functionality here to show assignments for this date
             });
@@ -222,6 +226,31 @@ public class Calendar extends JFrame {
     public void openCurGradePage() {
         dispose();
         new AddGrades();
+    }
+    public void displayAssignments(LocalDate date) {
+        JTextArea assignmentArea = new JTextArea();
+        assignmentArea.setEditable(false);//Makes student not able to edit their assignment
+        assignmentArea.setFont(new Font("Arial", Font.PLAIN, 14));// sets a default font
+        assignmentArea.setBackground(Color.BLUE);//sets a default background color
+        assignmentArea.setForeground(Color.WHITE);
+        assignmentArea.setLineWrap(true);
+        List<Assignments> list = assignmentsByDate.get(date);// Grabs the list on the spreadsheet with the assignments due date.
+        if (list == null || list.isEmpty()) { //If an assignment is due it does't show it
+            assignmentArea.setText("No assignments found");
+        }
+        else
+        {
+    StringBuilder tasks = new StringBuilder();
+            for (Assignments t: list) { // How it will list out the assignments. When our list has 10 assignments it will run this loop 10 times each time our t will be the next assignment.
+                tasks.append(t.ClassName).append("").append(t.AssignmentName) // what is t it is our temp variable that holds the assignment object into a list
+                        .append("Type:").append(t.AssignmentType)
+                        .append("Due by").append(t.timeDue)
+                        .append("Point of Assignment").append(t.points);
+
+            }
+            assignmentArea.setText(tasks.toString());// Makes sure all of these come out as strings
+
+        }
     }
 }
 
