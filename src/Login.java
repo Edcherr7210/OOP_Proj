@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Login extends JFrame implements ActionListener, MouseListener {
 
@@ -116,75 +120,111 @@ public class Login extends JFrame implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //Will add db later to save the info of student or admin
-
         String email = usernameField.getText();
-        String password = new String (passwordField.getPassword());
-        //Makes it so email has to end with @snhu.edu
-        if (!ValidEmail(email)) {//Checks to make sure it's a verified email
+        String password = new String(passwordField.getPassword());
+
+        // Validate email format
+        if (!ValidEmail(email)) {
             errorLabel.setText("Invalid Email must end with @snhu.edu");
             return;
         }
+
+        // Validate password requirements
         if (!AllowedPassword(password)) {
-            errorLabel.setText("Invaild Password. Must be 12+ Characters, must include one uppercase, one lowercase, special character and a numerical number ");
+            errorLabel.setText("Invalid Password. Must be 12+ Characters, must include one uppercase, one lowercase, special character and a numerical number");
             return;
         }
-        String name = email.split ("@")[0];//divides a string into pieces so we can the first name
-        System.out.println("Tracked username:" + name);
+
+        // Authenticate against database using email
+        if (authenticate(email, password)) {
+            System.out.println("Login successful for: " + email);
+            errorLabel.setText("");
+
+            // Close login window and open calendar
+            this.dispose();
+            // TODO: Replace MainCalendar with your actual calendar class name
+            new Calendar();
+
+        } else {
+            errorLabel.setText("Incorrect email or password. Please try again.");
+            passwordField.setText(""); // Clear password field
+        }
     }
+
     public boolean ValidEmail(String email) {
-        if (email== null) //Makes sure the email can't be anything else other than @snhu.edu
+        if (email == null)
             return false;
         return email.contains("@snhu.edu");
     }
+
     public boolean AllowedPassword(String password) {
         if (password == null)
             return false;
-        if (password.length()< 12)
+        if (password.length() < 12)
             return false;
-        boolean cap =false;
-        boolean low =false;
-        boolean num =false;
-        boolean specialChar =false;
-        for (char p : password.toCharArray()) {//checks each of these conditions to make sure there true. If not it's an invaild password.
+        boolean cap = false;
+        boolean low = false;
+        boolean num = false;
+        boolean specialChar = false;
+        for (char p : password.toCharArray()) {
             if (Character.isLowerCase(p)) low = true;
             else if (Character.isUpperCase(p)) cap = true;
             else if (Character.isDigit(p)) num = true;
             else specialChar = true;
         }
-
-
         return cap && low && num && specialChar;
     }
 
+    /**
+     * Authenticates user against the database
+     * @param email The email entered by user
+     * @param password The password entered by user
+     * @return true if credentials match, false otherwise
+     */
+    private boolean authenticate(String email, String password) {
+        String sql = "SELECT Password FROM students WHERE Email = ?";
 
+        try (Connection conn = Database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
 
-    private boolean authenticate(String user, String pass) {
-    return !user.isEmpty() && !pass.isEmpty(); // Placeholder logic
+            if (rs.next()) {
+                String storedPassword = rs.getString("Password");
+                // Direct password comparison (consider using hashed passwords in production)
+                return password.equals(storedPassword);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Database error during authentication: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+
+        return false; // User not found or error occurred
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //Will send to a class where you will register as a student or admin
         if (e.getSource() == signUpLink) {
             dispose();
             new SignUp();
-
+        }
     }
-}
 
-    @Override public void mouseEntered(MouseEvent e) {
+    @Override
+    public void mouseEntered(MouseEvent e) {
         if (e.getSource() == signUpLink) signUpLink.setForeground(Color.LIGHT_GRAY);
     }
-    @Override public void mouseExited(MouseEvent e) {
+
+    @Override
+    public void mouseExited(MouseEvent e) {
         if (e.getSource() == signUpLink) signUpLink.setForeground(Color.WHITE);
     }
-    @Override public void mousePressed(MouseEvent e) {}
-    @Override public void mouseReleased(MouseEvent e) {
 
+    @Override
+    public void mousePressed(MouseEvent e) {}
 
-    }
-
-
+    @Override
+    public void mouseReleased(MouseEvent e) {}
 }
