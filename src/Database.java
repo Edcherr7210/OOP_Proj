@@ -15,12 +15,11 @@ public class Database {
     // Create tables if they don't exist
     public static void init() {
         String sql = """
-
-            
                 CREATE TABLE IF NOT EXISTS "Student" (
-                "First_name" TEXT PRIMARY KEY AUTOINCREMENT,
+                "First_name" TEXT PRIMARY KEY,
                 "Last_name" TEXT NOT NULL,
                 "Password" TEXT NOT NULL,
+                "CSV-File" TEXT
             );
             CREATE TABLE  IF NOT EXISTS  "StudentCourse"(
                 "StudentID" TEXT PRIMARY KEY AUTOINCREMENT,

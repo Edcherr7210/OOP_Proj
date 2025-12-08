@@ -1,14 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.io.*;
+import java.util.HashMap;
+import java.util.List;
+import java.time.LocalDate;
 
 public class Calendar extends JFrame {
-
+    public JTextArea assignmentArea = new JTextArea("No assignments selected.\n\nClick a date to view assignments.");
+    public JLabel errorLabel;
     private LocalDateTime dateTime = LocalDateTime.now();
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
     private String currentDate = dateTime.format(formatter);
@@ -17,11 +23,13 @@ public class Calendar extends JFrame {
     private JLabel date = new JLabel(currentDate);
     private HashMap<LocalDate, JButton> DateButton = new HashMap<>();
     private YearMonth currentMonth = YearMonth.now();
-
+    private HashMap<LocalDate, List<Assignments>> assignmentsByDate = new HashMap<>();
     // Day labels
     private String[] dayNames = {"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
+    public String filepath;
 
     public Calendar() {
+        filepath = "No File Selected";
         // Full Screen
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,14 +62,19 @@ public class Calendar extends JFrame {
         JButton prevMonth = new JButton("← Previous");
         JButton nextMonth = new JButton("Next →");
         JButton today = new JButton("Today");
+        JButton importer = new JButton("Import CSV file");
+
 
         prevMonth.addActionListener(e -> changeMonth(-1));
         nextMonth.addActionListener(e -> changeMonth(1));
         today.addActionListener(e -> goToToday());
+        importer.addActionListener(e -> getFile());
+
 
         navPanel.add(prevMonth);
         navPanel.add(today);
         navPanel.add(nextMonth);
+        navPanel.add(importer);
         topPanel.add(navPanel, BorderLayout.SOUTH);
 
         leftPanel.add(topPanel, BorderLayout.NORTH);
@@ -79,23 +92,26 @@ public class Calendar extends JFrame {
         // ========== RIGHT PANEL (25% width) ==========
         JPanel rightPanel = new JPanel(new BorderLayout());
         rightPanel.setBackground(Color.DARK_GRAY);
-        rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        rightPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
-        JLabel assignmentTitle = new JLabel("Assignments");
+        JLabel assignmentTitle = new JLabel("        Assignments");
         assignmentTitle.setFont(new Font("Roboto Mono", Font.BOLD, 24));
         assignmentTitle.setForeground(Color.WHITE);
 
         assignmentPanel.setBackground(Color.GRAY);
         assignmentPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2));
+        rightPanel.setPreferredSize(new Dimension(325, 0));
 
-        JTextArea assignmentArea = new JTextArea("No assignments selected.\n\nClick a date to view assignments.");
+        errorLabel = new JLabel("");
+        errorLabel.setForeground(Color.RED);
+
         assignmentArea.setEditable(false);
         assignmentArea.setFont(new Font("Arial", Font.PLAIN, 14));
         assignmentArea.setLineWrap(true);
         assignmentArea.setWrapStyleWord(true);
         assignmentArea.setBackground(Color.GRAY);
         assignmentArea.setForeground(Color.WHITE);
-        assignmentArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        assignmentArea.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JScrollPane scrollPane = new JScrollPane(assignmentArea);
         scrollPane.setBorder(null);
@@ -161,7 +177,9 @@ public class Calendar extends JFrame {
             }
 
             // Add click listener
+            // dayButton.addActionListener(e -> {
             dayButton.addActionListener(e -> {
+                displayAssignments(date);
                 System.out.println("Clicked: " + date);
                 // You can add functionality here to show assignments for this date
             });
@@ -194,6 +212,79 @@ public class Calendar extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Calendar());
+    }
+
+    public void getFile() {
+        JFileChooser chooser = new JFileChooser(".");
+        int result = chooser.showOpenDialog(chooser);
+        String filepath;
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            File selectFile = chooser.getSelectedFile();
+            filepath = selectFile.getAbsolutePath();
+            CSVImportCode csv = new CSVImportCode(filepath);
+            LoadCSVData(csv);
+        }
+
+    }
+
+
+    public void displayAssignments(LocalDate date) {
+        List<Assignments> list = assignmentsByDate.get(date);// Grabs the list on the spreadsheet with the assignments due date.
+        if (list == null || list.isEmpty()) { //If an assignment is due it does't show it
+            assignmentArea.setText("No assignments found");
+            return;
+        }
+        //This is the least that converts assignments from highest to lowest. Double parse Double converts strings into numbers
+        list.sort((p1, p2) -> Double.compare(Double.parseDouble(p2.points), Double.parseDouble(p1.points)));
+            StringBuilder tasks = new StringBuilder();
+            for (Assignments t: list) {// How it will list out the assignments. When our list has 10 assignments it will run this loop 10 times each time our t will be the next assignment.
+                tasks.append("\n")
+                        .append(t.ClassName)
+                        .append("\n")
+                        .append(t.AssignmentName)
+                        .append("\n")
+                        .append("Point of Assignment: ")
+                        .append(t.points)
+                        .append("\n");
+
+            }
+            assignmentArea.setText(tasks.toString());// Makes sure all of these come out as strings
+
+    }
+    public void LoadCSVData(CSVImportCode csv) {
+        assignmentsByDate.clear();
+
+        ArrayList<String> Assignments = csv.assignments;
+        ArrayList<String> Date = csv.dates;
+        ArrayList<String> Points = csv.points;
+        ArrayList<String> Classes = csv.classes;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy"); // Adjust this to match your CSV
+
+        for (int i = 0; i < Date.size(); i++) {
+            try {
+                String dateStr = Date.get(i).trim();
+
+                if (dateStr.isEmpty() || !dateStr.matches(".*\\d.*")) {
+                    System.out.println("Skipping row with invalid date: '" + dateStr + "' for assignment: " + Assignments.get(i));
+                    continue;
+                }
+                LocalDate date = LocalDate.parse(Date.get(i), formatter);
+                Assignments assignment = new Assignments(Assignments.get(i), Date.get(i), Points.get(i), Classes.get(i));
+
+                // Add assignment to the map
+                if (!assignmentsByDate.containsKey(date)) {
+                    assignmentsByDate.put(date, new ArrayList<>());
+                }
+                assignmentsByDate.get(date).add(assignment);
+
+            } catch (Exception e) {
+                System.err.println("Error parsing date: " + Date.get(i));
+                e.printStackTrace();
+            }
+        }
+
+        updateCalendarGrid();
     }
 }
 
