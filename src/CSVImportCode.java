@@ -1,19 +1,38 @@
 import java.io.*;
-public class CSVImportCode {
-    public static void main(String[] args) {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.time.LocalDate;
 
-        String filelocation = "C:\\Users\\JohnA\\Desktop\\CS-250\\OOP_Proj\\src\\StudentsAssignment(Gage)-StudentAssignmentP4.csv"; //Get the csv file from srv this may be why we are having this error
+public class CSVImportCode {
+
+    public ArrayList<String> dates = new ArrayList<>();
+    public ArrayList<String> assignments = new ArrayList<>();
+    public ArrayList<String> points = new ArrayList<>();
+    public ArrayList<String> classes = new ArrayList<>();
+    public CSVImportCode(String filepath) {
+
+        String filelocation = filepath;//Get the csv file from srv this may be why we are having this error
+        System.out.println(filepath);
         BufferedReader reader = null; //shows if reader doesn't go to anything.
-        String line = "";//Reads each line of file
+        String line = ""; //Reads each line of file
 
         try {
             reader = new BufferedReader(new FileReader(filelocation));
-                  while ((line = reader.readLine()) != null) { // reads the next line every time
-                String[] row = line.split(","); // splits line at all commas
-                for (String index : row) { // displays all indexes
-                    System.out.printf("%-1s", index); // puts a space between all strings
-                }
-                System.out.println(); // prints all lines
+            reader.readLine();
+                while ((line = reader.readLine()) != null) { // reads the next line every time
+                    String[] row = line.split(",");
+                        if(row.length >= 7) {
+                            classes.add(row[1]);
+                            dates.add(row[5]);
+                            assignments.add(row[2]);
+                            points.add(row[6]);
+                            System.out.println(row[2] + " : " + row[5] + " : " + row[6]);
+                        }
+                        else {
+                            System.out.println("Skipping row with only " + row.length + " columns: " + line);
+            }
+
             }
         }
         catch (Exception e) {
@@ -21,13 +40,17 @@ public class CSVImportCode {
         }
         finally {
             try {
-                reader.close();//closes the file
+                if (reader != null) {
+                    reader.close();
+                }
             }
             catch (IOException e) {
                 e.printStackTrace();
             }
-        }// I like labeling things so you guys can understand and I don't forget something.
+        }
     }
+
+
 }
 
 
