@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -91,14 +92,15 @@ public class Calendar extends JFrame {
         // ========== RIGHT PANEL (25% width) ==========
         JPanel rightPanel = new JPanel(new BorderLayout());
         rightPanel.setBackground(Color.DARK_GRAY);
-        rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        rightPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
-        JLabel assignmentTitle = new JLabel("Assignments");
+        JLabel assignmentTitle = new JLabel("        Assignments");
         assignmentTitle.setFont(new Font("Roboto Mono", Font.BOLD, 24));
         assignmentTitle.setForeground(Color.WHITE);
 
         assignmentPanel.setBackground(Color.GRAY);
         assignmentPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2));
+        rightPanel.setPreferredSize(new Dimension(325, 0));
 
         errorLabel = new JLabel("");
         errorLabel.setForeground(Color.RED);
@@ -109,7 +111,7 @@ public class Calendar extends JFrame {
         assignmentArea.setWrapStyleWord(true);
         assignmentArea.setBackground(Color.GRAY);
         assignmentArea.setForeground(Color.WHITE);
-        assignmentArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        assignmentArea.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JScrollPane scrollPane = new JScrollPane(assignmentArea);
         scrollPane.setBorder(null);
@@ -175,10 +177,10 @@ public class Calendar extends JFrame {
             }
 
             // Add click listener
-           // dayButton.addActionListener(e -> {
-              dayButton.addActionListener(e -> {
-                 displayAssignments(date);
-                 System.out.println("Clicked: " + date);
+            // dayButton.addActionListener(e -> {
+            dayButton.addActionListener(e -> {
+                displayAssignments(date);
+                System.out.println("Clicked: " + date);
                 // You can add functionality here to show assignments for this date
             });
 
@@ -231,15 +233,24 @@ public class Calendar extends JFrame {
         List<Assignments> list = assignmentsByDate.get(date);// Grabs the list on the spreadsheet with the assignments due date.
         if (list == null || list.isEmpty()) { //If an assignment is due it does't show it
             assignmentArea.setText("No assignments found");
+            return;
         }
-        else
-        {
+        //This is the least that converts assignments from highest to lowest. Double parse Double converts strings into numbers
+        list.sort((p1, p2) -> Double.compare(Double.parseDouble(p2.points), Double.parseDouble(p1.points)));
             StringBuilder tasks = new StringBuilder();
             for (Assignments t: list) {// How it will list out the assignments. When our list has 10 assignments it will run this loop 10 times each time our t will be the next assignment.
-                tasks.append(t.ClassName).append(t.AssignmentName).append("Point of Assignment").append(t.points);
+                tasks.append("\n")
+                        .append(t.ClassName)
+                        .append("\n")
+                        .append(t.AssignmentName)
+                        .append("\n")
+                        .append("Point of Assignment: ")
+                        .append(t.points)
+                        .append("\n");
+
             }
             assignmentArea.setText(tasks.toString());// Makes sure all of these come out as strings
-        }
+
     }
     public void LoadCSVData(CSVImportCode csv) {
         assignmentsByDate.clear();
